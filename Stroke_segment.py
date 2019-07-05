@@ -28,9 +28,9 @@ def focal_loss(y_true, y_pred):
 
 
 def EML(y_true, y_pred):
-    gamma = 2
+    gamma = 1.1
     smooth = 1.
-    alpha = .25
+    alpha = .48
     y_true = K.flatten(y_true)
     y_pred = K.flatten(y_pred)
 
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     mode = 'train'  # use 'train' or 'detect'
     img_size = [192, 192]
     batch_size = 36
-    lr = 1e-5
+    lr = 1e-6
     gpu_used = 2
     test_programme = None  # 378#8316
     only = False
@@ -69,7 +69,7 @@ if __name__ == "__main__":
         os.makedirs(output_path)
     model.summary()
     model = multi_gpu_model(model, gpus=gpu_used)
-    model.compile(optimizer=Adam(lr=lr), loss= EML, metrics=[dice_coef])
+    model.compile(optimizer=Adam(lr=lr), loss=EML, metrics=[dice_coef])
 
     if load_weight != '':
         print('loading：', load_weight)
