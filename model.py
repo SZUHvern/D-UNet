@@ -1,6 +1,6 @@
 from __future__ import print_function
 from keras.models import Model, load_model
-from keras.optimizers import Adam
+from keras.optimizers import Adam, SGD
 from keras.preprocessing.image import ImageDataGenerator
 from keras.layers import *
 from keras.callbacks import EarlyStopping, ModelCheckpoint
