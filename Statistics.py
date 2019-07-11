@@ -91,9 +91,6 @@ def dice_coef(y_true, y_pred):
     intersection = K.sum(y_true_f * y_pred_f)
     return (2. * intersection + smooth) / (K.sum(y_true_f * y_true_f) + K.sum(y_pred_f * y_pred_f) + smooth)
 
-def DL(y_true, y_pred):
-    return 1. - dice_coef(y_true, y_pred)
-
 def EML(y_true, y_pred):
     gamma = 1.1
     alpha = 0.48
