@@ -14,7 +14,7 @@ if __name__ == "__main__":
     mode = 'train'  # use 'train' or 'detect'
     img_size = [192, 192]
     batch_size = 36
-    lr = 1e-6
+    lr = 1e-4
     gpu_used = 2
 
     model = D_Unet()
@@ -24,7 +24,7 @@ if __name__ == "__main__":
         os.makedirs(output_path)
     model.summary()
     model = multi_gpu_model(model, gpus=gpu_used)
-    model.compile(optimizer=Adam(lr=lr), loss=DL, metrics=[dice_coef])
+    model.compile(optimizer=SGD(lr=lr), loss=DL, metrics=[dice_coef])
 
     if load_weight != '':
         print('loading：', load_weight)
