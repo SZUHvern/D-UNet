@@ -24,7 +24,7 @@ if __name__ == "__main__":
         os.makedirs(output_path)
     model.summary()
     model = multi_gpu_model(model, gpus=gpu_used)
-    model.compile(optimizer=SGD(lr=lr), loss=DL, metrics=[dice_coef])
+    model.compile(optimizer=SGD(lr=lr), loss=EML, metrics=[dice_coef])
 
     if load_weight != '':
         print('loading：', load_weight)
