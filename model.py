@@ -410,71 +410,71 @@ def conv_bn_block(x, filter):
     x = Concatenate()([x, x1])
     return x
 
-def fcn_8s(num_classes=1, vgg_weight_path=None):
-    img_input = Input(shape=(192, 192, 1))
+def fcn_8s(num_classes, input_shape, lr_init, lr_decay, vgg_weight_path=None):
+    img_input = Input(input_shape)
 
     # Block 1
-    x = Conv2D(32, (3, 3), padding='same', name='block1_conv1',kernel_initializer='he_normal')(img_input)
+    x = Conv2D(64, (3, 3), padding='same', name='block1_conv1')(img_input)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
 
-    x = Conv2D(32, (3, 3), padding='same', name='block1_conv2',kernel_initializer='he_normal')(x)
+    x = Conv2D(64, (3, 3), padding='same', name='block1_conv2')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
 
     x = MaxPooling2D()(x)
 
     # Block 2
-    x = Conv2D(64, (3, 3), padding='same', name='block2_conv1',kernel_initializer='he_normal')(x)
+    x = Conv2D(128, (3, 3), padding='same', name='block2_conv1')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
 
-    x = Conv2D(64, (3, 3), padding='same', name='block2_conv2',kernel_initializer='he_normal')(x)
+    x = Conv2D(128, (3, 3), padding='same', name='block2_conv2')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
 
     x = MaxPooling2D()(x)
 
     # Block 3
-    x = Conv2D(128, (3, 3), padding='same', name='block3_conv1',kernel_initializer='he_normal')(x)
+    x = Conv2D(256, (3, 3), padding='same', name='block3_conv1')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
 
-    x = Conv2D(128, (3, 3), padding='same', name='block3_conv2',kernel_initializer='he_normal')(x)
+    x = Conv2D(256, (3, 3), padding='same', name='block3_conv2')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
 
-    x = Conv2D(128, (3, 3), padding='same', name='block3_conv3',kernel_initializer='he_normal')(x)
+    x = Conv2D(256, (3, 3), padding='same', name='block3_conv3')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
 
     block_3_out = MaxPooling2D()(x)
 
     # Block 4
-    x = Conv2D(256, (3, 3), padding='same', name='block4_conv1',kernel_initializer='he_normal')(block_3_out)
+    x = Conv2D(512, (3, 3), padding='same', name='block4_conv1')(block_3_out)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
 
-    x = Conv2D(256, (3, 3), padding='same', name='block4_conv2',kernel_initializer='he_normal')(x)
+    x = Conv2D(512, (3, 3), padding='same', name='block4_conv2')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
 
-    x = Conv2D(256, (3, 3), padding='same', name='block4_conv3',kernel_initializer='he_normal')(x)
+    x = Conv2D(512, (3, 3), padding='same', name='block4_conv3')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
 
     block_4_out = MaxPooling2D()(x)
 
     # Block 5
-    x = Conv2D(256, (3, 3), padding='same', name='block5_conv1',kernel_initializer='he_normal')(block_4_out)
+    x = Conv2D(512, (3, 3), padding='same', name='block5_conv1')(block_4_out)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
 
-    x = Conv2D(256, (3, 3), padding='same', name='block5_conv2',kernel_initializer='he_normal')(x)
+    x = Conv2D(512, (3, 3), padding='same', name='block5_conv2')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
 
-    x = Conv2D(256, (3, 3), padding='same', name='block5_conv3',kernel_initializer='he_normal')(x)
+    x = Conv2D(512, (3, 3), padding='same', name='block5_conv3')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
 
@@ -486,21 +486,21 @@ def fcn_8s(num_classes=1, vgg_weight_path=None):
         vgg16.load_weights(vgg_weight_path, by_name=True)
 
     # Convolutinalized fully connected layer.
-    x = Conv2D(512, (6, 6), activation='relu', padding='same',kernel_initializer='he_normal')(x)
+    x = Conv2D(4096, (7, 7), activation='relu', padding='same')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
-    x = Conv2D(512, (1, 1), activation='relu', padding='same',kernel_initializer='he_normal')(x)
+    x = Conv2D(4096, (1, 1), activation='relu', padding='same')(x)
     x = BatchNormalization()(x)
     x = Activation('relu')(x)
 
     # Classifying layers.
-    x = Conv2D(num_classes, (1, 1), strides=(1, 1), activation='linear',kernel_initializer='he_normal')(x)
+    x = Conv2D(num_classes, (1, 1), strides=(1, 1), activation='linear')(x)
     x = BatchNormalization()(x)
 
-    block_3_out = Conv2D(num_classes, (1, 1), strides=(1, 1), activation='linear',kernel_initializer='he_normal')(block_3_out)
+    block_3_out = Conv2D(num_classes, (1, 1), strides=(1, 1), activation='linear')(block_3_out)
     block_3_out = BatchNormalization()(block_3_out)
 
-    block_4_out = Conv2D(num_classes, (1, 1), strides=(1, 1), activation='linear',kernel_initializer='he_normal')(block_4_out)
+    block_4_out = Conv2D(num_classes, (1, 1), strides=(1, 1), activation='linear')(block_4_out)
     block_4_out = BatchNormalization()(block_4_out)
 
     x = Lambda(lambda x: tf.image.resize_images(x, (x.shape[1] * 2, x.shape[2] * 2)))(x)
@@ -512,9 +512,7 @@ def fcn_8s(num_classes=1, vgg_weight_path=None):
     x = Activation('relu')(x)
 
     x = Lambda(lambda x: tf.image.resize_images(x, (x.shape[1] * 8, x.shape[2] * 8)))(x)
-
-    x = Activation('sigmoid')(x)
+    x = Activation('softmax')(x)
 
     model = Model(img_input, x)
-
     return model
