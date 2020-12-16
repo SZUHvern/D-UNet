@@ -14,7 +14,7 @@ DSC(Dice Similarity Coefficient)、Recall、Precision
 ATLAS（Anatomical Tracings of Lesions-After-Stroke dataset）
 # 运行环境与依赖
 代码运行的环境与依赖。如下所示：
-We have trained the models on three 1080TI GPUs
+
 |类别|名称|版本|
 |-----|-----|-----|
 |os|ubuntu|16.04|
