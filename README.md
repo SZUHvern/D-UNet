@@ -5,13 +5,13 @@ D-UNet: a dimension-fusion U shape network for chronic stroke lesion segmentatio
 Weijian Huang
 # 项目简介
 ## 1. 功能
-代码实现的功能
+分割脑卒中
 ## 2. 性能
 代码的性能，比如资源占用，准确率等。
 ## 3. 评估指标
 比如mAP等。
 ## 4. 使用数据集
-包括数据集名称、来源。如果不使用数据集，则留空。
+ATLAS
 
 # 运行环境与依赖
 代码运行的环境与依赖。如下所示：
