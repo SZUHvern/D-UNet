@@ -18,12 +18,12 @@ ATLAS（Anatomical Tracings of Lesions-After-Stroke dataset）
 # 运行环境与依赖
 代码运行的环境与依赖。如下所示：
 
-|类别|名称|版本|
-|-----|-----|-----|
-|os|ubuntu|16.04|
-|深度学习框架|tensorflow|1.10.0|
-|keras|2.2.0|
-|python|3.6.0|
+名称|版本|
+|-----|-----|
+|ubuntu|16.04|
+|Tensorflow|1.10.0|
+|Keras|2.2.0|
+|Python|3.6.0|
 # 输入与输出
 代码的输入与输出。如下所示：
 
