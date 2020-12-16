@@ -29,7 +29,7 @@ ATLAS（Anatomical Tracings of Lesions-After-Stroke dataset）
 
 |名称|说明|
 |-----|-----|
-|输入|D灰度图像，大小为192X192X4X1（宽x高x切片数x通道）的连续切片。
+|输入|3D灰度图像，大小为192X192X4X1（宽x高x切片数x通道）的连续切片。
 |输出|分割结果。0表示背景，1表示脑卒中区域|
 
 # 运行方式
